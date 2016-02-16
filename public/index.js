@@ -1,14 +1,39 @@
 
 
 var BlogApp = React.createClass({
+  getBlogPosts: function() {
+    $.get( "/blog/posts", function( data ) {
+      this.setState({data: data});
+    }.bind(this));
+  },
+  componentDidMount: function() {
+    this.getBlogPosts();
+    setInterval(this.getBlogPosts, this.props.pollInterval);
+  },
   render: function() {
     return (
       <div className="container cf">
         <Head />
-        <Stats />
-        <Blog />
+        <Stats  />
+        <Blog  />
         <BlogPost />
       </div>
+    );
+  }
+});
+
+var Msg = React.createClass({
+  render: function() {
+    return (
+          <div className="blog-container">
+            <div className="blog-box">
+              <p>This would be the blog message</p>
+              <span>the date 2/23 At 4:30 pm</span>
+              <button
+                   onClick={this.getBlogPosts}
+                >Delete</button>
+            </div>
+          </div>
     );
   }
 });
@@ -20,13 +45,7 @@ var Blog = React.createClass({
           <div className="intro">
             <h2>Blog Posts</h2>
           </div>  
-          <div className="blog-container">
-            <div className="blog-box">
-              <p>This would be the blog message</p>
-              <span>the date 2/23 At 4:30 pm</span>
-              <button>Delete</button>
-            </div>
-          </div>
+          <Msg />          
         </div>
     );
   }
@@ -76,6 +95,6 @@ var Head = React.createClass({
 });
 
 ReactDOM.render(
-  <BlogApp url="/api/comments" pollInterval={2000} />,
+  <BlogApp pollInterval={10000} />,
   document.getElementById('app')
 );
