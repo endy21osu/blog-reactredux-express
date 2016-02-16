@@ -1,0 +1,128 @@
+html {
+	background-color: #EEE;
+}
+
+body {
+	padding: 50px;
+  	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#Container {}
+
+.container {
+	width: 1000px;
+	margin: 0 auto;
+	padding: 10px;
+}
+
+.intro {
+	padding: 40px 10px;
+}
+.intro h1{
+    border-bottom: 2px solid #BD2C2C;
+}
+
+.blog-container {
+	margin: 15px 0;
+    border: 1px solid;
+    background-color: #ccc;
+}
+
+.blog-box {
+	padding: 2px;
+}
+
+.blog-box span{
+	margin-left: 10px;
+}
+
+
+.blog .intro {
+	 padding: 10px;
+}
+.blog .intro h2{
+
+    border-bottom: 2px solid #BD2C2C;
+
+}
+
+
+
+
+.cf {
+    overflow: auto;
+}
+
+a {
+	color: #00B7FF;
+    text-decoration: none;
+}
+
+.stats {
+	float: left;
+	width: 40%;
+	padding: 10px;
+    margin: 10px;
+}
+
+.stats p{
+	overflow-wrap: break-word;
+}
+
+.blog {
+	float: right;
+    width: 50%;
+    background-color: #FFF;
+    padding: 10px;
+    margin: 10px;
+}
+
+.blog p {
+	background-color: #90D694;
+    min-height: 50px;
+    margin: 5px;
+}
+
+.blog-post {
+	background-color: #F5DE7E;
+    float: right;
+    width: 49%;
+	padding: 10px;
+    margin: 10px;
+}
+
+.blog-post textarea{
+	width: 100%;
+    background-color: #444;
+    color: #9CFD8C;
+    min-height: 40px;
+}
+
+.row {
+    height: 30px;
+    background-color: #00B7FF;
+}
+
+.row ul {
+	margin: 0;
+    padding: 0;
+}
+
+.row li {
+    width: 49.6%;
+    display: inline-flex;
+    height: 30px;
+    font-size: 1.5em;
+    margin-right: 0.1%;
+    background-color: #479061;
+} 
+
+.row li a {
+	margin: 0 auto;
+	color: #FFF;
+}
+
+.row li:hover {
+	background-color: #00B7FF;
+	color: #479061;
+} 

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="blogApp">
+	<head>
+		<link rel="stylesheet" type="text/css" href="mod/common/blog.css"></link>
+
+		<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
+		<script type="text/javascript" src="vendor/angular-1.4.3.min.js"></script>
+		<script type="text/javascript" src="vendor/ui-router-0.2.15.min.js"></script>
+		<script type="text/javascript" src="vendor/underscore-1.8.3.min.js"></script>
+		<script type="text/javascript" src="app/app.js"></script>
+	</head>
+
+	<body>
+		<div id='Container' ng-controller="BlogVwCtrl">
+			<div class='container cf'>
+				<div class="intro">
+					<h1>Hello Bloggers! Please comment on what you think of express!</h1>
+					<p>More to come.</p>
+				</div>	
+
+				<div class="stats">
+					<p>
+						blog: <br>{{blog}}
+						<br><br><br>
+						newpost: <br>{{newpost}}
+					</p>
+				</div>
+
+				<div class="blog">
+					<div class="intro">
+						<h2>Blog Posts</h1>
+					</div>	
+					<div ng-repeat="post in blog" class="blog-container">
+						<div class="blog-box">
+							<p>{{post.blogmsg}}</p>
+							<span>{{post.time | date:'medium'}}</span>
+							<button ng-click="deletePost(post._id)">Delete</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="blog-post" form="newPost">
+					<p>Please Post about Express</p>
+					<textarea ng-model="newpost.blogmsg"></textarea>
+					<button ng-click="submitPost(this)">Submit</button>
+				</div>
+<!-- 				<div class="row">
+					<ul class="nav nav-pills">
+						<li><a href="#/blog">Blog</a></li>
+						<li><a href="#/post">Post on Blog</a></li>
+					</ul>
+				</div> -->
+
+				<!-- <div ui-view></div> -->
+
+			</div>	
+		</div>
+	</body>
+
+</html>
