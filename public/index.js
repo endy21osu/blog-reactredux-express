@@ -4,18 +4,24 @@ var BlogApp = React.createClass({
   getBlogPosts: function() {
     $.get( "/blog/posts", function( data ) {
       this.setState({data: data});
+      console.log(this);
     }.bind(this));
+  },
+  getInitialState: function() {
+    return {data: []};
   },
   componentDidMount: function() {
     this.getBlogPosts();
+    console.log("in mount where is this called?");
+     console.log(this);
     setInterval(this.getBlogPosts, this.props.pollInterval);
   },
   render: function() {
     return (
       <div className="container cf">
         <Head />
-        <Stats  />
-        <Blog  />
+        <Stats data={this.state.data} />
+        <Blog data={this.state.data} />
         <BlogPost />
       </div>
     );
@@ -27,8 +33,8 @@ var Msg = React.createClass({
     return (
           <div className="blog-container">
             <div className="blog-box">
-              <p>This would be the blog message</p>
-              <span>the date 2/23 At 4:30 pm</span>
+              <p>{this.props.msg}</p>
+              <span>{this.props.time}</span>
               <button
                    onClick={this.getBlogPosts}
                 >Delete</button>
@@ -39,13 +45,20 @@ var Msg = React.createClass({
 });
 
 var Blog = React.createClass({
-  render: function() {
+  render: function() { 
+    console.log("in blog componet");
+    console.log(this);
+    var posts = this.props.data.map(function(post){
+        return(
+          <Msg time={post.time} msg={post.blogmsg} />
+        );
+      });
     return (
         <div className="blog">
           <div className="intro">
             <h2>Blog Posts</h2>
           </div>  
-          <Msg />          
+          {posts}          
         </div>
     );
   }
@@ -70,12 +83,30 @@ var BlogPost = React.createClass({
   }
 });
 
-var Stats = React.createClass({
+
+var StatMsg = React.createClass({
   render: function() {
     return (
+      <span>{this.props.ref} : {this.props.time} : {this.props.blogmsg}</span>
+    );
+  }
+});
+
+var Stats = React.createClass({
+  render: function() { 
+    console.log("in stats");
+    console.log(this);
+     var posts = this.props.data.map(function(post){
+       console.log(post);
+        return(
+          <StatMsg ref={post._id} blogmsg={post.blogmsg} time={post.time} />
+        );
+      });
+      console.log(posts)
+    return (
         <div className="stats">
+          {posts}
           <p>
-            blog: meta data
             newpost: <br />post text
           </p>
         </div>
