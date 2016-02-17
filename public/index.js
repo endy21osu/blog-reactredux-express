@@ -12,8 +12,7 @@ var BlogApp = React.createClass({
   },
   componentDidMount: function() {
     this.getBlogPosts();
-    console.log("in mount where is this called?");
-     console.log(this);
+    //console.log("in mount where is this called?");
     setInterval(this.getBlogPosts, this.props.pollInterval);
   },
   render: function() {
@@ -29,6 +28,15 @@ var BlogApp = React.createClass({
 });
 
 var Msg = React.createClass({
+    getInitialState: function() {
+      return { id: ''};
+    },
+    deletePost: function(event) {
+    $.ajax({
+        url: "/blog/deletepost/" + this.props.id,
+        type: 'DELETE'
+    });  
+  },
   render: function() {
     return (
           <div className="blog-container">
@@ -36,7 +44,7 @@ var Msg = React.createClass({
               <p>{this.props.msg}</p>
               <span>{this.props.time}</span>
               <button
-                   onClick={this.getBlogPosts}
+                   onClick={this.deletePost}
                 >Delete</button>
             </div>
           </div>
@@ -45,16 +53,19 @@ var Msg = React.createClass({
 });
 
 var Blog = React.createClass({
+   handleBlogChange: function(e) {
+    BlogApp.getBlogPosts();
+  },
   render: function() { 
-    console.log("in blog componet");
-    console.log(this);
     var posts = this.props.data.map(function(post){
         return(
-          <Msg time={post.time} msg={post.blogmsg} />
+          <Msg id={post._id} time={post.time} msg={post.blogmsg} />
         );
       });
     return (
-        <div className="blog">
+        <div className="blog"
+          onChange={this.handleBlogChange}
+        >
           <div className="intro">
             <h2>Blog Posts</h2>
           </div>  
@@ -65,16 +76,44 @@ var Blog = React.createClass({
 });
 
 var BlogPost = React.createClass({
+  getInitialState: function() {
+    return { text: ''};
+  },
+  handleTextChange: function(e) {
+    this.setState({text: e.target.value});
+  },
+  submitPost: function(e) {
+    e.preventDefault();
+    var text = this.state.text.trim();
+    if (!text) {
+      return;
+    }
+
+    var newpost = {
+        "blogmsg" : text,
+        "time" : event.timeStamp
+
+    }
+
+    $.post( "/blog/addpost", newpost,function( data ) {
+      console.log("success");
+       
+    });
+    this.setState({text: ''});
+    
+  },
   render: function() {
     return (
-      <form className="blog-post" form="newPost" onSubmit={this.submitPost}>
+      <form className="blog-post" form="newPost">
         <p>Please Post About React</p>
         <textarea
           type="text"
           placeholder="enter your post"
-          value="this.state.author"
+          value={this.state.text}
+          onChange={this.handleTextChange}
         />
         <button
+          onClick={this.submitPost}
         >
         Submit
         </button>
@@ -94,15 +133,12 @@ var StatMsg = React.createClass({
 
 var Stats = React.createClass({
   render: function() { 
-    console.log("in stats");
-    console.log(this);
      var posts = this.props.data.map(function(post){
-       console.log(post);
         return(
           <StatMsg ref={post._id} blogmsg={post.blogmsg} time={post.time} />
         );
       });
-      console.log(posts)
+
     return (
         <div className="stats">
           {posts}
