@@ -1,4 +1,3 @@
-/** @jsx React.Dom */
 
 'use strict'
 
@@ -7,7 +6,7 @@ var React = require('react')
 var BlogApp = require('./components/BlogApp')
 
 React.render(
-  <BlogApp pollInterval={100} />,
+  <BlogApp pollInterval={5000} />,
   document.getElementById('app')
 );
 
