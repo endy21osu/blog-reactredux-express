@@ -1,0 +1,20 @@
+{
+  "name": "blog-react-ui",
+  "version": "1.0.0",
+  "description": "this is the build for the ui",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "jgordon",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.2.0",
+    "jest-cli": "^0.8.2",
+    "jsx-loader": "^0.13.2"
+  },
+  "dependencies": {
+    "react": "^0.14.7"
+  }
+}
